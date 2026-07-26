@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reset your password — Fantasy Gaffer</title>
+<meta name="robots" content="noindex">
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #1a2236; max-width: 560px; margin: 0 auto; padding: 40px 20px; line-height: 1.6; }
+  h1 { font-size: 26px; margin-bottom: 4px; }
+  .mark { width: 72px; height: 72px; border-radius: 17px; background: #00E676; display: block; margin-bottom: 20px; }
+  .muted { color: #6b6673; font-size: 15px; }
+  .btn { display: inline-block; background: #37003C; color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 12px; font-weight: 600; margin-top: 8px; }
+  a { color: #37003C; }
+</style>
+</head>
+<body>
+  <main>
+    <img class="mark" src="../icon.png" alt="Fantasy Gaffer logo">
+    <h1>Open this link in the app</h1>
+    <p>
+      Password resets are completed inside Fantasy Gaffer, not on the web — so
+      there's no form here.
+    </p>
+    <p>
+      <strong>Open this link on the phone where you asked for the reset</strong>,
+      with the app installed. It has to be the same device: the app holds a
+      one-time key that this page doesn't have, which is what stops anyone else
+      who gets hold of the link from changing your password.
+    </p>
+
+    <!-- Same escape hatch as /verify: for an installed app whose Universal
+         Link didn't fire. The auth code is read from the live URL rather than
+         baked into the page. -->
+    <p id="open-wrap" hidden>
+      <a class="btn" id="open-app" href="#">Open in the app</a>
+    </p>
+
+    <p class="muted">
+      Reset links expire quickly. If this one has, open Fantasy Gaffer, tap
+      <em>Forgot password?</em>, and request another.
+    </p>
+
+    <p class="muted">
+      Didn't ask for this? You can ignore it — your password hasn't changed, and
+      it can't change until someone opens this link on your device. If you keep
+      getting these, tell us:
+      <a href="mailto:feedback@fantasy-gaffer.com">feedback@fantasy-gaffer.com</a>
+    </p>
+  </main>
+<script>
+  (function () {
+    if (!/iPhone|iPad|iPod/.test(navigator.userAgent)) return;
+    var link = document.getElementById('open-app');
+    link.href = 'fplgafferreactnativeapp://reset-password' + window.location.search;
+    document.getElementById('open-wrap').hidden = false;
+  })();
+</script>
+</body>
+</html>

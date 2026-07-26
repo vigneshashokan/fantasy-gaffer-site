@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["Q6G9ABTUH5.com.fantasygaffer.app"],
+        "components": [
+          { "/": "/verify", "comment": "email confirmation" },
+          { "/": "/verify?*", "comment": "email confirmation with auth code" },
+          { "/": "/reset-password", "comment": "password reset" },
+          { "/": "/reset-password?*", "comment": "password reset with auth code" }
+        ]
+      }
+    ]
+  }
+}
