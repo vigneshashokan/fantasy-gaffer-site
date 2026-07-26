@@ -1,0 +1,80 @@
+name: Deploy site
+
+# Publishes fantasy-gaffer.com to GitHub Pages.
+#
+# The legal pages are NOT authored here. They are generated in the app repo
+# (vigneshashokan/fantasy-gaffer) from src/content/legal/*.ts by
+# `npm run legal:html` and guarded there by a parity test. This workflow pulls
+# them at build time so the hosted policy can never drift from the in-app
+# screens — which matters, because App Review and users read both.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+  # The app repo can't trigger us without a cross-repo token, so rebuild weekly
+  # to pick up legal-content edits merged over there. Cheap; content rarely moves.
+  schedule:
+    - cron: '17 5 * * 1'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+
+      # Public repo, so the default token can read it — no PAT needed.
+      - name: Fetch generated legal HTML from the app repo
+        uses: actions/checkout@v4
+        with:
+          repository: vigneshashokan/fantasy-gaffer
+          ref: main
+          path: app
+          sparse-checkout: |
+            legal-site/privacy.html
+            legal-site/terms.html
+            assets/logos/icon.png
+          sparse-checkout-cone-mode: false
+
+      # Directory-style paths so /privacy and /terms resolve without relying on
+      # the host's extensionless-file fallback.
+      - name: Stage site
+        run: |
+          set -euo pipefail
+          for f in app/legal-site/privacy.html app/legal-site/terms.html app/assets/logos/icon.png; do
+            [ -s "$f" ] || { echo "::error::missing or empty $f — did the app repo move it?"; exit 1; }
+          done
+          cp -r public site
+          mkdir -p site/privacy site/terms
+          cp app/legal-site/privacy.html site/privacy/index.html
+          cp app/legal-site/terms.html   site/terms/index.html
+          cp app/assets/logos/icon.png   site/icon.png
+          echo 'fantasy-gaffer.com' > site/CNAME
+          # Jekyll ignores dot-directories, which would silently 404
+          # /.well-known/apple-app-site-association when Universal Links land.
+          touch site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
