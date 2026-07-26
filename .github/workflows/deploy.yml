@@ -46,7 +46,6 @@ jobs:
           sparse-checkout: |
             legal-site/privacy.html
             legal-site/terms.html
-            assets/logos/icon.png
           sparse-checkout-cone-mode: false
 
       # Directory-style paths so /privacy and /terms resolve without relying on
@@ -54,14 +53,13 @@ jobs:
       - name: Stage site
         run: |
           set -euo pipefail
-          for f in app/legal-site/privacy.html app/legal-site/terms.html app/assets/logos/icon.png; do
+          for f in app/legal-site/privacy.html app/legal-site/terms.html; do
             [ -s "$f" ] || { echo "::error::missing or empty $f — did the app repo move it?"; exit 1; }
           done
           cp -r public site
           mkdir -p site/privacy site/terms
           cp app/legal-site/privacy.html site/privacy/index.html
           cp app/legal-site/terms.html   site/terms/index.html
-          cp app/assets/logos/icon.png   site/icon.png
           echo 'fantasy-gaffer.com' > site/CNAME
           # Jekyll ignores dot-directories, which would silently 404
           # /.well-known/apple-app-site-association when Universal Links land.
