@@ -29,8 +29,11 @@
 
     <h2>Legal</h2>
     <ul>
-      <li><a href="/privacy">Privacy Policy</a></li>
-      <li><a href="/terms">Terms of Service</a></li>
+      <!-- Relative, not root-absolute: the site serves from a repo subpath
+           (vigneshashokan.github.io/fantasy-gaffer-site/) until the custom
+           domain is attached, and these must work in both places. -->
+      <li><a href="privacy/">Privacy Policy</a></li>
+      <li><a href="terms/">Terms of Service</a></li>
     </ul>
 
     <h2>Support</h2>

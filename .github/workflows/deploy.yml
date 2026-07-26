@@ -60,7 +60,9 @@ jobs:
           mkdir -p site/privacy site/terms
           cp app/legal-site/privacy.html site/privacy/index.html
           cp app/legal-site/terms.html   site/terms/index.html
-          echo 'fantasy-gaffer.com' > site/CNAME
+          # No CNAME file here on purpose: an Actions-based Pages deploy ignores
+          # it (verified — the domain stayed unset after a green run). The custom
+          # domain lives in repo Settings > Pages instead.
           # Jekyll ignores dot-directories, which would silently 404
           # /.well-known/apple-app-site-association when Universal Links land.
           touch site/.nojekyll
