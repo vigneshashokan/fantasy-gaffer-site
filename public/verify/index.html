@@ -47,7 +47,10 @@
   </main>
 <script>
   (function () {
-    if (!/iPhone|iPad|iPod/.test(navigator.userAgent)) return;
+    // Android too: App Links (assetlinks.json) need the Play signing
+    // cert, and Play is parked — so on Android this button is the ONLY
+    // route into the app, not just a fallback.
+    if (!/iPhone|iPad|iPod|Android/.test(navigator.userAgent)) return;
     var link = document.getElementById('open-app');
     link.href = 'fplgafferreactnativeapp://verify' + window.location.search;
     document.getElementById('open-wrap').hidden = false;
