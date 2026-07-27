@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Email confirmed — Fantasy Gaffer</title>
+<title>Confirm your email — Fantasy Gaffer</title>
 <meta name="robots" content="noindex">
 <style>
   body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #1a2236; max-width: 560px; margin: 0 auto; padding: 40px 20px; line-height: 1.6; }
@@ -17,28 +17,30 @@
 <body>
   <main>
     <img class="mark" src="../icon.png" alt="Fantasy Gaffer logo">
-    <h1>Email confirmed</h1>
+    <h1>Confirm your email in the app</h1>
     <p>
-      Your email address is verified. You're seeing this page instead of the app
-      because Fantasy Gaffer isn't installed on this device — or you opened the
-      link on a computer.
+      You're seeing this page instead of the app because Fantasy Gaffer isn't
+      installed on this device — or you opened the link on a computer.
     </p>
-    <p><strong>Open Fantasy Gaffer on your phone and sign in to continue.</strong></p>
+    <p>
+      <strong>Open this link on the phone with Fantasy Gaffer installed.</strong>
+      Confirmation happens inside the app, so nothing has changed yet.
+    </p>
 
     <!-- Universal Links normally open the app directly. This is the escape
          hatch for when they don't: an app that IS installed but had the link
          forced into the browser (long-press > Open in Safari), or an install
          so fresh that iOS hasn't fetched the association yet. Built in JS so
-         the auth code rides along from the current URL and is never written
-         into the served HTML. -->
+         the token rides along from the current URL and is never written into
+         the served HTML. -->
     <p id="open-wrap" hidden>
       <a class="btn" id="open-app" href="#">Open in the app</a>
     </p>
 
     <p class="muted">
-      Nothing to do here — this page can't sign you in, and the link is only
-      valid for a short while. If it's expired, just sign in and the app will
-      offer to send a fresh one.
+      This page can't confirm you on its own, and the link is only valid for a
+      short while. If it's expired, just sign in and the app will offer to send
+      a fresh one.
     </p>
 
     <p class="muted">

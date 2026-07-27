@@ -23,14 +23,13 @@
       there's no form here.
     </p>
     <p>
-      <strong>Open this link on the phone where you asked for the reset</strong>,
-      with the app installed. It has to be the same device: the app holds a
-      one-time key that this page doesn't have, which is what stops anyone else
-      who gets hold of the link from changing your password.
+      <strong>Open this link on a phone with Fantasy Gaffer installed.</strong>
+      The link is single-use and expires quickly, and the new password is set
+      in the app.
     </p>
 
     <!-- Same escape hatch as /verify: for an installed app whose Universal
-         Link didn't fire. The auth code is read from the live URL rather than
+         Link didn't fire. The token is read from the live URL rather than
          baked into the page. -->
     <p id="open-wrap" hidden>
       <a class="btn" id="open-app" href="#">Open in the app</a>
@@ -43,8 +42,7 @@
 
     <p class="muted">
       Didn't ask for this? You can ignore it — your password hasn't changed, and
-      it can't change until someone opens this link on your device. If you keep
-      getting these, tell us:
+      it won't unless this link is opened. If you keep getting these, tell us:
       <a href="mailto:feedback@fantasy-gaffer.com">feedback@fantasy-gaffer.com</a>
     </p>
   </main>
